@@ -59,3 +59,14 @@ class SandwichMachine:
            Hint: no output"""
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
+subway = SandwichMachine(resources)
+command = input("What would you like? (small/ medium/ large/ off/ report) ")
+if command == "off":
+    print("turning off")
+elif command == "report":
+    print("bread: " + str(subway.machine_resources["bread"]) + " slice(s)")
+    print("ham: " + str(subway.machine_resources["ham"]) + " slice(s)")
+    print("cheese: " + str(subway.machine_resources["cheese"]) + " slice(s)")
+else:
+    ### make sandwich ###
+    print("order taken")
