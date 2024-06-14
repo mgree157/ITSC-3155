@@ -40,7 +40,7 @@ class SandwichMachine:
 
     def __init__(self, machine_resources):
         """Receives resources as input.
-           Hint: bind input variable to self variable"""
+        Hint: bind input variable to self variable"""
         self.machine_resources = machine_resources
 
     def check_resources(self, ingredients):
@@ -70,8 +70,10 @@ class SandwichMachine:
         """Return True when the payment is accepted, or False if money is insufficient.
            Hint: use the output of process_coins() function for cost input"""
         if coins >= cost :
+
             return True
         else:
+
             return False
 
     def make_sandwich(self, sandwich_size, order_ingredients):
@@ -82,22 +84,23 @@ class SandwichMachine:
         self.machine_resources["cheese"] -= order_ingredients["cheese"]
         print(sandwich_size + " sandwich is ready. Bon appetit!")
 
+
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 subway = SandwichMachine(resources)
-command = input("What would you like? (small/ medium/ large/ off/ report) ")
-if command == "off":
-    print("turning off")
-elif command == "report":
-    print("bread: " + str(subway.machine_resources["bread"]) + " slice(s)")
-    print("ham: " + str(subway.machine_resources["ham"]) + " slice(s)")
-    print("cheese: " + str(subway.machine_resources["cheese"]) + " slice(s)")
-else:
-    if subway.check_resources(recipes[command]["ingredients"]):
-        payment = subway.process_coins()
-        if subway.transaction_result(payment, recipes[command]["cost"]):
-            if payment > recipes[command]["cost"]:
-                print("Here is $" + str(round(payment - recipes[command]["cost"], 2)) + " in change")
-            subway.make_sandwich(command, recipes[command]["ingredients"])
-        else:
-            print("Sorry, that’s not enough money. Money refunded.")
-
+while subway.check_resources(recipes["small"]["ingredients"]):
+    command = input("What would you like? (small/ medium/ large/ off/ report) ")
+    if command == "off":
+        break
+    elif command == "report":
+        print("bread: " + str(subway.machine_resources["bread"]) + " slice(s)")
+        print("ham: " + str(subway.machine_resources["ham"]) + " slice(s)")
+        print("cheese: " + str(subway.machine_resources["cheese"]) + " slice(s)")
+    else:
+        if subway.check_resources(recipes[command]["ingredients"]):
+            payment = subway.process_coins()
+            if subway.transaction_result(payment, recipes[command]["cost"]):
+                if payment > recipes[command]["cost"]:
+                    print("Here is $" + str(round(payment - recipes[command]["cost"], 2)) + " in change")
+                subway.make_sandwich(command, recipes[command]["ingredients"])
+            else:
+                print("Sorry, that’s not enough money. Money refunded.")
