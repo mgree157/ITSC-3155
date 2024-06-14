@@ -86,4 +86,8 @@ elif command == "report":
 else:
     if subway.check_resources(recipes[command]["ingredients"]):
         payment = subway.process_coins()
+        if subway.transaction_result(payment, recipes[command]["cost"]):
+            print("get change")
+        else:
+            print("Sorry, that’s not enough money. Money refunded.")
 
