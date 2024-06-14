@@ -45,6 +45,16 @@ class SandwichMachine:
 
     def check_resources(self, ingredients):
         """Returns True when order can be made, False if ingredients are insufficient."""
+        if self.machine_resources["bread"] < ingredients["bread"]:
+            print("Sorry there is not enough bread.")
+            return False
+        elif self.machine_resources["ham"] < ingredients["ham"]:
+            print("Sorry there is not enough ham.")
+            return False
+        elif self.machine_resources["cheese"] < ingredients["cheese"]:
+            print("Sorry there is not enough cheese.")
+            return False
+        return True
 
     def process_coins(self):
         """Returns the total calculated from coins inserted.
@@ -68,5 +78,5 @@ elif command == "report":
     print("ham: " + str(subway.machine_resources["ham"]) + " slice(s)")
     print("cheese: " + str(subway.machine_resources["cheese"]) + " slice(s)")
 else:
-    ### make sandwich ###
-    print("order taken")
+    if subway.check_resources(recipes[command]["ingredients"]):
+        print("making sandwich")
