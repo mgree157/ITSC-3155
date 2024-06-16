@@ -85,3 +85,22 @@ class SandwichMachine:
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 
+subway = SandwichMachine(resources)
+while True:
+    command = input("What would you like? (small/ medium/ large/ off/ report) ")
+    if command == "off":
+        print("turning off")
+        break
+    elif command == "report":
+        print("bread: " + str(subway.machine_resources["bread"]) + " slice(s)")
+        print("ham: " + str(subway.machine_resources["ham"]) + " slice(s)")
+        print("cheese: " + str(subway.machine_resources["cheese"]) + " slice(s)")
+    else:
+        if subway.check_resources(recipes[command]["ingredients"]):
+            payment = subway.process_coins()
+            if subway.transaction_result(payment, recipes[command]["cost"]):
+                if payment > recipes[command]["cost"]:
+                    print("Here is $" + str(round(payment - recipes[command]["cost"], 2)) + " in change")
+                subway.make_sandwich(command, recipes[command]["ingredients"])
+            else:
+                print("Sorry, that’s not enough money. Money refunded.")
